@@ -12,20 +12,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Docker image for Pandoc 
-        run: |
-          docker build -t pandoc/font .
-
-      - name: Generate PDF with Pandoc
-        run: |
-          docker run --rm \
-            --volume "${{ github.workspace }}:/data" \
-            --user $(id -u):$(id -g) \
-            pandoc/font \
-            --pdf-engine=lualatex resume.md -o Luis_Fernando_Dresch_Resume.pdf
+      - uses: docker://pandoc/extra
+        with:
+          args: >-
+            --pdf-engine=lualatex
+            resume.md 
+            -o Luis_Fernando_Dresch_Resume.pdf
 
       - name: Upload Resume PDF
         uses: actions/upload-artifact@v4
