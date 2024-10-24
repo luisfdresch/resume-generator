@@ -1,13 +1,15 @@
 name: Build Resume PDF
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,3 +27,7 @@ jobs:
           name: Luis_Fernando_Dresch_Resume.pdf
           path: Luis_Fernando_Dresch_Resume.pdf
 
+      - name: Upload to GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: Luis_Fernando_Dresch_Resume.pdf
