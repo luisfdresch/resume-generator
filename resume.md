@@ -1,6 +1,6 @@
 ---
 geometry: margin=3cm
-mainfont: FiraSans
+mainfont: SourceSansPro
 ---
 
 ```{=latex}
